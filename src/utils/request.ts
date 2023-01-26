@@ -18,3 +18,4 @@ async function get(url: string) {
 export const request = {
   get,
 };
+
