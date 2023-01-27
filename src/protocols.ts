@@ -28,12 +28,13 @@ export type RequestError = {
   message: string;
 };
 
-export type TicketType = {
-  id: number;
-  name: string;
-  price: number;
-  isRemote: boolean;
-  includesHotel: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-};
+export type postPaymentBody = {
+  ticketId: number,
+	cardData: {
+		issuer: string,
+    number: string,
+    name: string,
+    expirationDate: string,
+    cvv: string
+	}
+}
