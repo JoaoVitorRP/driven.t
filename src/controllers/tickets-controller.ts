@@ -1,4 +1,5 @@
 import { AuthenticatedRequest } from "@/middlewares";
+import { postTicketTypeBody } from "@/protocols";
 import ticketsService from "@/services/tickets-service";
 import { Response } from "express";
 import httpStatus from "http-status";
@@ -27,7 +28,7 @@ export async function getTickets(req: AuthenticatedRequest, res: Response) {
 }
 
 export async function postTicket(req: AuthenticatedRequest, res: Response) {
-  const { ticketTypeId } = req.body;
+  const { ticketTypeId } = req.body as postTicketTypeBody;
   const { userId } = req;
 
   try {

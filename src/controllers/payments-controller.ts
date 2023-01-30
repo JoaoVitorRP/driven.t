@@ -1,11 +1,11 @@
 import { AuthenticatedRequest } from "@/middlewares";
-import { postPaymentBody } from "@/protocols";
+import { postPaymentBody, ticketIdQuery } from "@/protocols";
 import paymentsService from "@/services/payments-service";
 import { Response } from "express";
 import httpStatus from "http-status";
 
 export async function getPayments(req: AuthenticatedRequest, res: Response) {
-  const { ticketId } = req.query;
+  const { ticketId } = req.query as ticketIdQuery;
   const { userId } = req;
 
   try {

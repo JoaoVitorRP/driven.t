@@ -29,12 +29,20 @@ export type RequestError = {
 };
 
 export type postPaymentBody = {
-  ticketId: number,
-	cardData: {
-		issuer: string,
-    number: string,
-    name: string,
-    expirationDate: string,
-    cvv: string
-	}
-}
+  ticketId: number;
+  cardData: {
+    issuer: string;
+    number: string;
+    name: string;
+    expirationDate: string;
+    cvv: string;
+  };
+};
+
+export type ticketIdQuery = {
+  ticketId: string;
+};
+
+export type postTicketTypeBody = {
+  ticketTypeId: number;
+};
