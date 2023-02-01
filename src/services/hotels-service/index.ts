@@ -7,17 +7,17 @@ async function getHotels(userId: number) {
 
   if (ticket.status !== "PAID") {
     throw {
-      name: "UnauthorizedError",
+      name: "PaymentRequiredError",
       message: "Your ticket must be paid before you continue",
     };
   }
 
   const ticketType = await ticketsService.getTicketTypeById(ticket.ticketTypeId);
 
-  if (!ticketType.includesHotel) {
+  if (!ticketType.includesHotel || ticketType.isRemote) {
     throw {
-      name: "UnauthorizedError",
-      message: "Your ticket doesn't include a hotel",
+      name: "PaymentRequiredError",
+      message: "Your ticket is remote or doesn't include a hotel",
     };
   }
 
