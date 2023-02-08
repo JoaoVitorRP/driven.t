@@ -47,3 +47,10 @@ export type ticketIdQuery = {
 export type postTicketTypeBody = {
   ticketTypeId: number;
 };
+
+export type postBookingBody = {
+  userId: number;
+  roomId: number;
+};
+
+export type postBookingRequest = Omit<postBookingBody, "userId">;
