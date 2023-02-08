@@ -2,6 +2,7 @@ import { AuthenticatedRequest } from "@/middlewares";
 import { postBookingRequest } from "@/protocols";
 import bookingService from "@/services/booking-service";
 import { Response } from "express";
+import httpStatus from "http-status";
 
 export async function getBooking(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
@@ -9,10 +10,9 @@ export async function getBooking(req: AuthenticatedRequest, res: Response) {
   try {
     const booking = await bookingService.getBooking(userId);
 
-    return res.status(200).send(booking);
+    return res.status(httpStatus.OK).send(booking);
   } catch (err) {
-    if (err.name === "NotFoundError") return res.status(404).send(err.message);
-    return res.status(203).send(err.message);
+    if (err.name === "NotFoundError") return res.status(httpStatus.NOT_FOUND).send(err.message);
   }
 }
 
@@ -23,11 +23,10 @@ export async function postBooking(req: AuthenticatedRequest, res: Response) {
   try {
     const bookingId = await bookingService.postBooking(userId, Number(roomId));
 
-    return res.status(200).send({ bookingId });
+    return res.status(httpStatus.OK).send({ bookingId });
   } catch (err) {
-    if (err.name === "NotFoundError") return res.status(404).send(err.message);
-    if (err.name === "ForbiddenError") return res.status(403).send(err.message);
-    return res.status(203).send(err.message);
+    if (err.name === "NotFoundError") return res.status(httpStatus.NOT_FOUND).send(err.message);
+    if (err.name === "ForbiddenError") return res.status(httpStatus.FORBIDDEN).send(err.message);
   }
 }
 
@@ -39,10 +38,9 @@ export async function putBooking(req: AuthenticatedRequest, res: Response) {
   try {
     const id = await bookingService.putBooking(userId, Number(bookingId), Number(roomId));
 
-    return res.status(200).send({ bookingId: id });
+    return res.status(httpStatus.OK).send({ bookingId: id });
   } catch (err) {
-    if (err.name === "NotFoundError") return res.status(404).send(err.message);
-    if (err.name === "ForbiddenError") return res.status(403).send(err.message);
-    return res.status(203).send(err.message);
+    if (err.name === "NotFoundError") return res.status(httpStatus.NOT_FOUND).send(err.message);
+    if (err.name === "ForbiddenError") return res.status(httpStatus.FORBIDDEN).send(err.message);
   }
 }
